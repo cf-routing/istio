@@ -650,8 +650,9 @@ func (s *DiscoveryServer) initConnectionNode(discReq *xdsapi.DiscoveryRequest, c
 		return err
 	}
 	// If the proxy has no service instances and its a gateway, kill the XDS connection as we cannot
-	// serve any gateway config if we dont know the proxy's service instances
-	if nt.Type == model.Router && (nt.ServiceInstances == nil || len(nt.ServiceInstances) == 0) {
+	// serve any gateway config if we dont know the proxy's service instances. This does not apply to
+	// Cloud Foundry, which has gateways that can exist without service entries.
+	if !s.NoGatewayServiceInstances && (nt.Type == model.Router && (nt.ServiceInstances == nil || len(nt.ServiceInstances) == 0)) {
 		return errors.New("gateway has no associated service instances")
 	}
 

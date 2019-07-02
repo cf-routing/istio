@@ -49,6 +49,8 @@ var (
 	// For larger clusters it can increase memory use and GC - useful for small tests.
 	DebugConfigs = os.Getenv("PILOT_DEBUG_ADSZ_CONFIG") == "1"
 
+	// we need to add a comment
+	NoGatewayServiceInstances = os.Getenv("PILOT_NO_GATEWAY_SERVICE_INSTANCES") == "1"
 	// RefreshDuration is the duration of periodic refresh, in case events or cache invalidation fail.
 	// Example: "300ms", "10s" or "2h45m".
 	// Default is 0 (disabled).

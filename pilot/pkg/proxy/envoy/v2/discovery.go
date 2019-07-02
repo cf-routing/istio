@@ -126,6 +126,12 @@ type DiscoveryServer struct {
 	// shards.
 	mutex sync.RWMutex
 
+	// NeedsGatewayServiceInstances indicates if the gateway must have associated service instances.
+	// When using Cloud Foundry, a gateway does not have to be part of the service registry, and thus
+	// does not need service instances.
+	// Defaults to true, can be enabled with PILOT_NEED
+	NoGatewayServiceInstances bool
+
 	// EndpointShards for a service. This is a global (per-server) list, built from
 	// incremental updates.
 	EndpointShardsByService map[string]*EndpointShards
@@ -238,6 +244,8 @@ func NewDiscoveryServer(
 	go out.periodicRefreshMetrics()
 
 	out.DebugConfigs = pilot.DebugConfigs
+
+	out.NoGatewayServiceInstances = pilot.NoGatewayServiceInstances
 
 	pushThrottle := intEnv(pilot.PushThrottle, 10)
 	pushBurst := intEnv(pilot.PushBurst, 100)
