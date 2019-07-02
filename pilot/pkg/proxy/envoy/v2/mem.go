@@ -310,6 +310,7 @@ func (sd *MemServiceDiscovery) InstancesByPort(hostname model.Hostname, port int
 // GetProxyServiceInstances returns service instances associated with a node, resulting in
 // 'in' services.
 func (sd *MemServiceDiscovery) GetProxyServiceInstances(node *model.Proxy) ([]*model.ServiceInstance, error) {
+	fmt.Println("GetProxyServiceInstances in pilot/pkg/proxy/envoy/v2/mem.go")
 	sd.mutex.Lock()
 	defer sd.mutex.Unlock()
 	if sd.GetProxyServiceInstancesError != nil {

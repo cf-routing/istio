@@ -15,6 +15,7 @@
 package aggregate
 
 import (
+	"fmt"
 	"sync"
 
 	multierror "github.com/hashicorp/go-multierror"
@@ -220,6 +221,7 @@ func (c *Controller) InstancesByPort(hostname model.Hostname, port int,
 	return instances, errs
 }
 
+// This is what's used by nt.SetServiceInstances(s.Env)
 // GetProxyServiceInstances lists service instances co-located with a given proxy
 func (c *Controller) GetProxyServiceInstances(node *model.Proxy) ([]*model.ServiceInstance, error) {
 	out := make([]*model.ServiceInstance, 0)
@@ -227,6 +229,8 @@ func (c *Controller) GetProxyServiceInstances(node *model.Proxy) ([]*model.Servi
 	// It doesn't make sense for a single proxy to be found in more than one registry.
 	// TODO: if otherwise, warning or else what to do about it.
 	for _, r := range c.GetRegistries() {
+		fmt.Println("REGISTRY:")
+		fmt.Printf("R: %+v \n", r)
 		instances, err := r.GetProxyServiceInstances(node)
 		if err != nil {
 			errs = multierror.Append(errs, err)

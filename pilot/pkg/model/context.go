@@ -192,7 +192,12 @@ func (node *Proxy) SetSidecarScope(ps *PushContext) {
 }
 
 func (node *Proxy) SetServiceInstances(env *Environment) error {
+	fmt.Println("BEFORE")
+	//This calls all of them???
+	fmt.Printf("ENV IS: %+v \n", env)
 	instances, err := env.GetProxyServiceInstances(node)
+	fmt.Printf("INSTANCES: %+v \n", instances)
+	fmt.Println("AFTER")
 	if err != nil {
 		log.Errorf("failed to get service proxy service instances: %v", err)
 		return err
@@ -278,6 +283,7 @@ func ParseServiceNodeWithMetadata(s string, metadata map[string]string) (*Proxy,
 		return out, fmt.Errorf("invalid node type (valid types: ingress, sidecar, router in the service node %q", s)
 	}
 
+	fmt.Printf("NODE METADATA INSTANCE IPS %s \n", metadata[NodeMetadataInstanceIPs])
 	// Get all IP Addresses from Metadata
 	if ipstr, found := metadata[NodeMetadataInstanceIPs]; found {
 		ipAddresses, err := parseIPAddresses(ipstr)

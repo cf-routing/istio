@@ -15,6 +15,7 @@
 package external
 
 import (
+	"fmt"
 	"sync"
 	"time"
 
@@ -223,6 +224,7 @@ func portMatchSingle(instance *model.ServiceInstance, port int) bool {
 
 // GetProxyServiceInstances lists service instances co-located with a given proxy
 func (d *ServiceEntryStore) GetProxyServiceInstances(node *model.Proxy) ([]*model.ServiceInstance, error) {
+	fmt.Println("GetProxyServiceInstances pilot/pkg/serviceregistry/external/servicediscovery.go ####!!!!++++Getting Service instances (ServiceDiscovery.go)")
 	d.update()
 	d.storeMutex.RLock()
 	defer d.storeMutex.RUnlock()

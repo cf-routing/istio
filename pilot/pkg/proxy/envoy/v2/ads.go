@@ -635,6 +635,7 @@ func (s *DiscoveryServer) initConnectionNode(discReq *xdsapi.DiscoveryRequest, c
 	if discReq.Node == nil || discReq.Node.Id == "" {
 		return errors.New("missing node id")
 	}
+	// proxy object is nt lol fuck this shit
 	nt, err := model.ParseServiceNodeWithMetadata(discReq.Node.Id, model.ParseMetadata(discReq.Node.Metadata))
 	if err != nil {
 		return err

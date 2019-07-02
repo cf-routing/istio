@@ -222,6 +222,7 @@ func (sd *ServiceDiscovery) InstancesByPort(hostname model.Hostname, num int,
 
 // GetProxyServiceInstances implements discovery interface
 func (sd *ServiceDiscovery) GetProxyServiceInstances(node *model.Proxy) ([]*model.ServiceInstance, error) {
+	fmt.Println("GetProxyServiceInstances in pilot/pkg/serviceregistry/memory/discovery.go")
 	if sd.GetProxyServiceInstancesError != nil {
 		return nil, sd.GetProxyServiceInstancesError
 	}
@@ -229,7 +230,9 @@ func (sd *ServiceDiscovery) GetProxyServiceInstances(node *model.Proxy) ([]*mode
 		return sd.WantGetProxyServiceInstances, nil
 	}
 	out := make([]*model.ServiceInstance, 0)
+	fmt.Println("SERVICES LOOP")
 	for _, service := range sd.services {
+		fmt.Printf("service %+v \n", service)
 		if !service.External() {
 			for v := 0; v < sd.versions; v++ {
 				// Only one IP for memory discovery?

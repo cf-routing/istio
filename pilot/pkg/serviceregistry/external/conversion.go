@@ -15,6 +15,7 @@
 package external
 
 import (
+	"fmt"
 	"net"
 	"strings"
 
@@ -154,6 +155,8 @@ func convertEndpoint(service *model.Service, servicePort *networking.Port,
 func convertInstances(config model.Config) []*model.ServiceInstance {
 	out := make([]*model.ServiceInstance, 0)
 	serviceEntry := config.Spec.(*networking.ServiceEntry)
+	fmt.Printf("****&&&&!!!CREATING SERVICE INSTANCE FROM SERVICE ENTRY %+v", serviceEntry)
+
 	for _, service := range convertServices(config) {
 		for _, serviceEntryPort := range serviceEntry.Ports {
 			if len(serviceEntry.Endpoints) == 0 &&

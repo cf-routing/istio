@@ -497,6 +497,7 @@ func (c *Controller) InstancesByPort(hostname model.Hostname, reqSvcPort int,
 
 // GetProxyServiceInstances returns service instances co-located with a given proxy
 func (c *Controller) GetProxyServiceInstances(proxy *model.Proxy) ([]*model.ServiceInstance, error) {
+	fmt.Println("GetProxyServiceInstances kube controller")
 	out := make([]*model.ServiceInstance, 0)
 
 	// There is only one IP for kube registry
@@ -530,6 +531,7 @@ func (c *Controller) GetProxyServiceInstances(proxy *model.Proxy) ([]*model.Serv
 	// 2. Headless service
 	endpointsForPodInSameNS := make([]*model.ServiceInstance, 0)
 	endpointsForPodInDifferentNS := make([]*model.ServiceInstance, 0)
+	fmt.Println("$$$$$$$$$$Headless Service")
 	for _, item := range c.endpoints.informer.GetStore().List() {
 		ep := *item.(*v1.Endpoints)
 		endpoints := &endpointsForPodInSameNS
